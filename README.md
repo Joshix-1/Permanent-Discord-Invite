@@ -7,5 +7,5 @@ How to get the invite:
 3. Check Enable Server Widget
 4. Select an invite channel
 5. Copy the server id
-6. Go to https://joshix-1.github.io/Permanent-Discord-Invite/?id=GUILD_ID
+6. Go to https://joshix-1.github.io/invite/?id=GUILD_ID
 7. Replace "GUILD_ID" with the server id (step 5)
