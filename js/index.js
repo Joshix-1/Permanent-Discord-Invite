@@ -1,6 +1,6 @@
 const widget = "https://discordapp.com/api/guilds/GUILD_ID/widget.json";
-const text = $(".text");
-text.text("");
+const text = document.getElementsByClassName("text").item(0);
+text.textContent = "";
 
 function getUrlVars() {
     var vars = {};
@@ -35,7 +35,7 @@ const onError = function(data) {
         } catch(ignored){};
 
     }
-    text.append('<div>An error occurred. ' + str + '</div>');
+    text.append('An error occurred. ' + str);
 };
 
 
@@ -45,10 +45,17 @@ const openInvite = function (data) {
         if(invite == undefined) {
             onError(data);
         } else {
-            text.append('<div>Click here if you the forwarding doesn\'t work: <a href="' + invite + '">' + invite + '</a></div>');
+            let new_element = document.createElement("div");
+            new_element.textContent = "Click here if the forwarding doesn\'t work: ";
+            let hyper_link = document.createElement("a");
+            hyper_link.textContent = invite;
+            hyper_link.href = invite;
+            new_element.append(hyper_link);
+            text.append(new_element);
             window.location = invite;
         }
     } catch(e) {
+        console.log(e);
         onError(data);
     }
 };
