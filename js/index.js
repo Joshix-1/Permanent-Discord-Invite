@@ -24,7 +24,7 @@ const onError = function(data) {
             message = json.message;
             if (typeof message === "undefined") {
                 message = json["guild_id"][0];
-                if (typeof message !== "undefined") { //when data unexpected json:
+                if (typeof message === "undefined") { //when data unexpected json:
                     message = data;
                 }
             }
