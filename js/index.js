@@ -1,6 +1,6 @@
-const widget = "https://discordapp.com/api/guilds/GUILD_ID/widget.json";
-const text = document.getElementsByClassName("text").item(0);
-text.textContent = "";
+const widget = "https://discordapp.com/api/guilds/ID/widget.json";
+const text = document.getElementById("text");
+text.textContent = ""; //remove javascript disabled text
 
 function getUrlVars() {
     let vars = {};
@@ -11,33 +11,23 @@ function getUrlVars() {
 }
 
 function getUrlParam(parameter) {
-    if (window.location.href.indexOf(parameter + "=") > -1) {
-        return getUrlVars()[parameter];
-    } else {
-        return "";
-    }
+    const val = getUrlVars()[parameter];
+    return typeof val === "undefined" || val === "" ? false : val;
 }
 
 const onError = function(data) {
-    let str = "";
+    text.append("An error occurred. ");
     if(data !== "") {
-        try {
-            let json = JSON.parse(data);
-            let message = json.message;
-            if(typeof message === "undefined") {
-                message = json["guild_id"][0];
-                if(typeof message === "undefined") {
-                    str = 'Message = "' + message + '"';
-                } else {
-                    str = 'Message = "' + data + '"';
-                }
-            } else {
-                str = 'Message = "' + message + '"';
+        let json = JSON.parse(data);
+        let message = json.message;
+        if(typeof message === "undefined") {
+            message = json["guild_id"][0];
+            if(typeof message !== "undefined") {
+                message =  data;
             }
-        } catch(ignored){}
-
+        }
+        text.append("Message: " + message);
     }
-    text.append("An error occurred. " + str);
 };
 
 
@@ -57,16 +47,15 @@ const openInvite = function (data) {
     }
 };
 
-const id = getUrlParam("id");
-if(id === "") {
-    window.location = "README.md"
-} else {
-    fetch(widget.replace("GUILD_ID", id))
+const guildId = getUrlParam("id");
+if(guildId) {
+    fetch(widget.replace("ID", guildId))
         .then(function(response) {
             response.text().then(openInvite);
         }, function (response) {
             response.text().then(onError);
         }
-
     );
+} else {
+    window.location = "README.md"
 }
