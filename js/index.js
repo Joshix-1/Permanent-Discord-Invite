@@ -50,7 +50,7 @@ const openInvite = function (data) {
             text.append(new_element);
             window.location = invite;
         }
-    } catch(e) {
+    } catch(e) { //probably data != json
         onError(e.toString());
     }
 };
