@@ -1,4 +1,4 @@
-const widget = "https://discord.com/api/guilds/ID/widget.json";
+const widget = "https://discordapp.com/api/guilds/ID/widget.json";
 const text = document.getElementById("text");
 text.textContent = ""; //remove javascript disabled text
 
@@ -60,7 +60,7 @@ const onError = function(data) {
 
                 const footer = document.createElement("footer");
                 footer.textContent = "Disclaimer: This page isn't affiliated with any of the websites listed above. I just chose them, because they were the only " + links.length
-                    + " I could find, that used the guild ids in their url. If you think that one service is missing tell me on GitHub.";
+                    + " I could find, that used the guild ids in their url. If you think that one service is missing tell me on GitHub."
                 text.append(footer);
             }
         } catch (e) { //when data not json:
